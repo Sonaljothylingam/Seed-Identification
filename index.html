@@ -1,14 +1,71 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Image Classification</title>
-  </head>
-  <body>
-    <h1>Image Classification</h1>
-    <input type="file" id="imageInput" />
-    <button onclick="predict()">Predict</button>
-    <div id="result"></div>
 
-    <script src="main.js"></script>
-  </body>
+<html>
+<head>
+<title>Python Flask Upload and display image</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />        
+<!--{{ url_for('static', filename='css/index.css')}}-->
+<!-- https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<style>
+    body {
+        background-color: #3AAFA9; /* Set the background color to black */
+        color: white; /* Set the text color to white or another contrasting color */
+    }
+    h1 {
+        margin-top: 40px; /* Adjust the margin-top value as needed */
+        color: white; /*#66FCF1;*/
+        font-size: 70px; /* Set the font size to 36 pixels or adjust as needed */
+        font-weight: bold;
+    }
+    h2 {
+        color: black;
+        margin-top: 100px; /* Adjust the margin-top value as needed */
+    }
+    img {
+        max-width: 100%; /* Set the maximum width to the width of its container */
+        height: auto; /* Maintain the aspect ratio */
+    }
+    .imagesnames{
+        margin-top: 50px;
+    }
+    img{
+        margin-top: 50px;
+    }
+</style>
+</head>
+<body>
+<p><h1 align="center">OBSP:Optimization Based Seed Prediction</h1></p>
+<div class="container">
+<div class="row">
+    <h2>Select a file to upload</h2>
+    <p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </p>
+    {% if filename %}
+        <div>
+            <img src="{{ url_for('display_image', filename=filename) }}">
+            <p class="imagesnames">Image Name: {{ image_name }}</p>
+        </div>
+    {% endif %}
+    <form method="post" action="/" enctype="multipart/form-data">
+        <dl>
+            <p>
+                <input type="file" name="file" class="form-control" autocomplete="off" required>
+            </p>
+        </dl>
+        <p>
+            <input type="submit" value="Submit" class="btn btn-info">
+        </p>
+    </form>
+</div>
+</div>
+</body>
 </html>
